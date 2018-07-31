@@ -126,9 +126,9 @@ In this section, you build an initial React.js application called `hello-world-t
     I'm all done. Running npm install for you to install the required dependencies. If this fails, try running the command yourself.
     ```
 
-    Depending on your environment you may have some problems with the npm packages. Go ahead and fix these before continuing.
+Depending on your environment you may have some problems with the `npm` packages. Go ahead and fix these before continuing to the next section.
 
-## Understand the basic application structure
+## Review the basic application structure
 
 The initial application you create is a generic Javascript application you run
 with a local express node. Before you continue, take a moment to examine the
@@ -177,13 +177,13 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
 2. Choose **Allow**.
 
-7. Open your browser to `http://localhost:8080`.
+3. Open your browser to `http://localhost:8080`.
 
-   You should see a simple React app.
+   You should see a simple application:
 
    ![](images/initial-app.gif)
 
-8. Choose **Sign In with Blockstack**.
+4. Choose **Sign In with Blockstack**.
 
    The application detects whether the user has the client edition installed or
    not. This is done automatically by the Blockstack API, more about this later.
@@ -193,34 +193,31 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
    |------------------|-----------------------------------|
    | ![](images/login-choice.png) | ![](images/login.gif) |
 
+   If the user has use the Blockstack authenticator but not reset it, the user can
+   simply use the exiting identity.
 
-    The application tells the user it will **Read your basic info**.
+   ![](images/login-no-auth.png)
 
-    ![](images/login.gif)
+   If the user chooses **Deny**, the Blockstack authenticator opens but the user
+   is not logged into the sample application.
 
-Leave your new application running and move onto the next section.
+5. Leave your new application running and move onto the next section.
 
+## Understand the application code
 
-
-### Part 2: Serving the App
-
-
-
-
-### Part 3: Main App Code
-
+In this section, you look at the main application code which is located in the
+`public/app.css` file. Open this file now.
 
 
-As you can see, all of the code in the file is wrapped in an event listener that
-waits until the DOM content has been loaded:
+All of the code in the file is wrapped in an event
+listener.
 
 ```js
 document.addEventListener("DOMContentLoaded", function(event) {
 })
 ```
 
-Inside of this, we have a sign in button handler that creates an auth request
-and redirects the user to sign in:
+This listener that waits until the DOM content is loaded. Then, it creates an auth request and redirects the user to sign in:
 
 ```js
 document.getElementById('signin-button').addEventListener('click', function() {
@@ -228,7 +225,7 @@ document.getElementById('signin-button').addEventListener('click', function() {
 })
 ```
 
-We also have a sign out button handler that deletes the local user data and signs the user out:
+You can find the `redirectUserToSignIn` function is part of the [Blockstack Javascript documentation](https://blockstack.github.io/blockstack.js/). There is also a sign out button handler. This handler deletes the local user data and signs the user out:
 
 ```js
 document.getElementById('signout-button').addEventListener('click', function() {
@@ -236,50 +233,47 @@ document.getElementById('signout-button').addEventListener('click', function() {
 })
 ```
 
-Next, we have a function for showing the user's profile:
+The handlers are followed by a `showProfile` function for showing the user's profile:
 
 ```js
 function showProfile(profile) {
   var person = new blockstack.Person(profile)
-  document.getElementById('heading-name').innerHTML = person.name()
-  document.getElementById('avatar-image').setAttribute('src', person.avatarUrl())
+  document.getElementById('heading-name').innerHTML = person.name() ? person.name() : "Nameless Person"
+  if(person.avatarUrl()) {
+    document.getElementById('avatar-image').setAttribute('src', person.avatarUrl())
+  }
   document.getElementById('section-1').style.display = 'none'
   document.getElementById('section-2').style.display = 'block'
 }
 ```
 
-Then, we have logic for signing the user in and displaying the application.
+Each `getElementById` function refers to elemments in the `index.html` file.
 
-Note that there are 3 main states the user can be in:
+Once a user is successfully signed in, there is logic for loading the user
+profile and displaying the application. As illustrated earlier, there are
+several states the user can be in:
 
 - The user is already signed in
-- The user has a sign in request that is pending
+- The user has a pending sign in request
 - The user is signed out
 
-We express that as follows:
-
-```js
-if (blockstack.isUserSignedIn()) {
-  // Show the user's profile
-} else if (blockstack.isSignInPending()) {
-  // Sign the user in
-} else {
-  // Do nothing
-}
-```
-
-With the first condition (when the user is signed in), we load the user data from local storage and then display the profile. With the second condition (when the user has a pending sign in request), we sign the user in and redirect the user back to the home page.
+These three choices are expressed as followed:
 
 ```js
 if (blockstack.isUserSignedIn()) {
   var profile = blockstack.loadUserData().profile
-  showProfile(profile)
+    showProfile(profile)
 } else if (blockstack.isSignInPending()) {
   blockstack.handlePendingSignIn().then(function(userData) {
     window.location = window.location.origin
   })
 }
 ```
+
+When the user is signed in, Blockstack loads the user data from local storage
+and displays the profile with the `showProfile` function. When the user has a
+pending sign in request, the appplication signs the user in and redirects the
+user back to the home page.
 
 ### Part 4: App Manifest
 
