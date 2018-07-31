@@ -69,8 +69,6 @@ existing projects.
     npm install -g generator-blockstack
     ```
 
-<!-- Need to find out if user is required to have React installed before running Yeoman. Doesn't appear to be the case. -->
-
 ## Generate an initial Blockstack application
 
 In this section, you build an initial React.js application called `hello-world-tutorial`.
@@ -152,7 +150,7 @@ In the `public` folder you find these files:
 | boostrap.min.css | Minifield css for production.                          |
 | icon-192x192.png | Application icon                          |
 | index.html       | Single page.                          |
-| manifest.json    | Tells the browser about the application and how it should behave when 'installed' on the users mobile device or desktop.                          |
+| manifest.json    | Tells the browser about the application and how it should behave.                          |
 | robots.txt       | Configures crawling and indexing.                          |
 
 The simple static file server in the `server.js`file serves all of the files in
