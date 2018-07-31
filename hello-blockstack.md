@@ -191,7 +191,7 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
    | Only using web app             | Has client edition installed                       |
    |------------------|-----------------------------------|
-   |   ![](images/login-choice.gif) | ![](images/login.gif) |
+   | ![](images/login-choice.png) | ![](images/login.gif) |
 
 
     The application tells the user it will **Read your basic info**.
