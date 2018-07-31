@@ -49,7 +49,7 @@ it](https://www.npmjs.com/get-npm). Finally, if you get stuck at any point
 while working on the tutorial, the completed [source code is available for
 you]() to check your work against.
 
-Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id). You'll use this tutorial
+Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id). You'll use this ID to interat with the application.
 
 ## Use npm to install Yeoman and the Blockstack App Generator
 
@@ -90,7 +90,7 @@ In this section, you build an initial React.js application called `hello-world-t
 3. Use Yeoman and the Blockstack application generator to create your initial `hello-world-tutorial` application.
 
     ```bash
-    yo blockstack:react
+    yo blockstack
     ```
 
     You should see several interactive prompts.
@@ -128,38 +128,54 @@ In this section, you build an initial React.js application called `hello-world-t
 
     Depending on your environment you may have some problems with the npm packages. Go ahead and fix these before continuing.
 
+## Understand the basic application structure
 
-Before you continue, take a moment to examine the structure of a basic Blockstack application:
+The initial application you create is a generic Javascript application you run
+with a local express node. Before you continue, take a moment to examine the
+structure of this generic application structure:
 
 | File             | Description                       |
 |------------------|-----------------------------------|
 | .editorconfig    | Sets universal values for editor. |
 | .gitignore       | Git configuration file.           |
-| firebase.json    | Contains                          |
-| package.json     | Contains                          |
-| requires.js      | Contains                          |
-| server.js        | Contains                          |
-| public/app.css   | Contains                          |
-| public/app.js    | Contains                          |
-| boostrap.min.css | Contains                          |
-| icon-192x192.png | Contains                          |
-| index.html       | Contains                          |
-| manifest.json    | Defines                           |
-| robots.txt       | Contains                          |
+| firebase.json    | Configuragion for mobile application. |                         |
+| package.json     | Specifies required packages.                          |
+| requires.js      | A Javascript module loader.                          |
+| server.js        | Simple static server configuration.                          |
 
-## Run the application in the browser
+In the `public` folder you find these files:
 
-5. Run the initial application.
+| File             | Description                       |
+|------------------|-----------------------------------|
+| app.css   | Contains application styles.                         |
+| app.js    | Main application file.                          |
+| boostrap.min.css | Minifield css for production.                          |
+| icon-192x192.png | Application icon                          |
+| index.html       | Single page.                          |
+| manifest.json    | Tells the browser about the application and how it should behave when 'installed' on the users mobile device or desktop.                          |
+| robots.txt       | Configures crawling and indexing.                          |
+
+The simple static file server in the `server.js`file serves all of the files in
+the `/public` directory, including `index.html`, `app.js`, `bootstrap.min.css`
+and `app.css`. The main file of the application is in the `app.js`. It contains
+the majority of the application logic.
+
+## Start the server and view the application
+
+When you start the server, it will create a Node.js server, start it locally,
+and open your browser 'http://localhost:5000'.  From the root of your new application directory:
+
+1. Start the application server.
 
     ```bash
     npm start
     ```
 
-    The system prompts you to accept incoming connections.
+    The first time you run it, your system prompts you to accept incoming connections.
 
     ![Network Connection](./images/network-connections.gif)
 
-6. Choose **Allow**.
+2. Choose **Allow**.
 
 7. Open your browser to `http://localhost:8080`.
 
@@ -168,6 +184,15 @@ Before you continue, take a moment to examine the structure of a basic Blockstac
    ![](images/initial-app.gif)
 
 8. Choose **Sign In with Blockstack**.
+
+   The application detects whether the user has the client edition installed or
+   not. This is done automatically by the Blockstack API, more about this later.
+   The next step depends on the users' current state.
+
+   | Only using web app             | Has client edition installed                       |
+   |------------------|-----------------------------------|
+   |   ![](images/login-choice.gif) | ![](images/login.gif) |
+
 
     The application tells the user it will **Read your basic info**.
 
@@ -179,28 +204,23 @@ Leave your new application running and move onto the next section.
 
 ### Part 2: Serving the App
 
-Start the development static file server to serve the app locally
 
-```bash
-npm run start
-```
 
-The simple static file server can be found in `server.js`.
-
-This server will serve all of the files in the `/public` directory, including `index.html`, `app.js`, `bootstrap.min.css` and `app.css`.
 
 ### Part 3: Main App Code
 
-The main file of our app is called `app.js` (in the `/public` folder). This is where the majority of the logic is contained.
 
-As you can see, all of the code in the file is wrapped in an event listener that waits until the DOM content has been loaded:
+
+As you can see, all of the code in the file is wrapped in an event listener that
+waits until the DOM content has been loaded:
 
 ```js
 document.addEventListener("DOMContentLoaded", function(event) {
 })
 ```
 
-Inside of this, we have a sign in button handler that creates an auth request and redirects the user to sign in:
+Inside of this, we have a sign in button handler that creates an auth request
+and redirects the user to sign in:
 
 ```js
 document.getElementById('signin-button').addEventListener('click', function() {
