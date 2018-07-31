@@ -49,7 +49,7 @@ it](https://www.npmjs.com/get-npm). Finally, if you get stuck at any point
 while working on the tutorial, the completed [source code is available for
 you]() to check your work against.
 
-Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id).  
+Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id). You'll use this tutorial
 
 ## Use npm to install Yeoman and the Blockstack App Generator
 
@@ -128,6 +128,24 @@ In this section, you build an initial React.js application called `hello-world-t
 
     Depending on your environment you may have some problems with the npm packages. Go ahead and fix these before continuing.
 
+
+Before you continue, take a moment to examine the structure of a basic Blockstack application:
+
+| File             | Description                       |
+|------------------|-----------------------------------|
+| .editorconfig    | Sets universal values for editor. |
+| .gitignore       | Git configuration file.           |
+| firebase.json    | Contains                          |
+| package.json     | Contains                          |
+| requires.js      | Contains                          |
+| server.js        | Contains                          |
+| public/app.css   | Contains                          |
+| public/app.js    | Contains                          |
+| boostrap.min.css | Contains                          |
+| icon-192x192.png | Contains                          |
+| index.html       | Contains                          |
+| manifest.json    | Defines                           |
+| robots.txt       | Contains                          |
 
 ## Run the application in the browser
 

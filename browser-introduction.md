@@ -1,6 +1,6 @@
-# Use the Blockstack Browser
+# Use the Blockstack Authenticator
 
-The Blockstack browser gives users the ability to explore and use the
+The Blockstack Authenticator gives users the ability to explore and use the
 decentralized applications (dapps). The decentralized applications are a new way
 to interact with the internet. Dapps give users control of their data. Data
 about them personally, name, birthdate, phone number and data about what they do
@@ -8,9 +8,9 @@ such as visiting a website or buying an item.
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Use the Blockstack Browser](#use-the-blockstack-browser)
-	- [Understand the Blockstack Browser](#understand-the-blockstack-browser)
-	- [Install the local browser](#install-the-local-browser)
+- [Use the Blockstack Authenticator](#use-the-blockstack-browser)
+	- [Understand the Blockstack Authenticator](#understand-the-blockstack-browser)
+	- [Install the client edition](#install-the-local-browser)
 		- [On Mac](#on-mac)
 		- [On Windows](#on-windows)
 		- [On Linux](#on-linux)
@@ -21,29 +21,53 @@ such as visiting a website or buying an item.
 
 <!-- /TOC -->
 
-## Understand the Blockstack Browser
+## Understand the Blockstack Authenticator
 
-Through the Blockstack browser you can create an identity. An identity
+Through the Blockstack authemticator application you can create an identity. An identity
 represents you as you interact with others through Dapps.  The Blockstack
-browser is itself, a smiple Dapp. It allows you to:
+authenticator is itself, a smiple Dapp. It allows you to:
 
 * create one or more identities
 * send and receive bitcoin
 * manage the storage of your profile and application data
 * find and launch Dapps
 
-There are two versions of the Blockstack Browser, a web edition and a local
-edition. If all you want to do is create, manage, and fund an identity you can
-s[imply use the web edition](https://browser.blockstack.org/). If you want to
-interact with Dapps built with the Blockstack platform or develop a Dapp
-yourself, you need to download and install the browser's local edition.
+There are editorions of the Blockstack Authenticator, the web edition is an
+application you access through your web browser by simply [visit the
+applications' address](https://browser.blockstack.org/) in your computer's
+browser.  You can also install the authenticator as a client application on your
+computer.
 
-## Install the local browser
+If all you want to do is create, manage, and fund an identity and then interact
+with Dapps, you can simply use the web edition. If you have concerns about net
+censorship, hightened security concerns, or develop a Dapp yourself, you may
+want to download and install the authenticator's client edition.
 
-The Blockstack Browser installer is a _multiple-context_ installer. If you run
-it as a user, the installation is avalable only for that user. If you install as
-administrator, the installation installs for all users. To find an installer for
-your operating system, visit [the Blockstack install
+## Using the Authenticator on public computers
+
+Before you use the web application, it is important to note that once you log
+into the application with the brower, your session does not expire until you
+choose **Settings > RESET BROWSER**.  For this reason, you should be careful
+when using the authenticator on public computers.
+
+If you are in a library, for example, and log into the authenticator, simply
+closing the tab or even rebooting the computer does not log you out. Instead,
+you should be sure to choose **Settings > RESET BROWSER** before leaving the web
+application.
+
+For more informatin about your identity and the authenticator, see [Get and use a Blockstack IDs](ids-introduction.md).
+
+## Install the client edition
+
+Remember, for most users the Blockstack Authenticator web application should
+suffice. You only need to install the client if you have additional, advanced
+concerns about Internet or identity. Though not required, some Dapp developrs
+may find it useful to install the client edition.
+
+The Blockstack Authenticator installer is a _multiple-context_ installer. If you
+run it as a user, the installation is avalable only for that user. If you
+install as administrator, the installation installs for all users. To find an
+installer for your operating system, visit [the Blockstack install
 page](https://blockstack.org/install).
 
 ### On Mac
@@ -64,7 +88,7 @@ Installation requires that you have macOS High Sierra 10.12 or higher. Do the fo
 
 5. Choose **Open**.
 
-   The system opens your default browser with the Blockstack Browser
+   The system opens your default browser with the Blockstack Authenticator
    application, running from your machine (localhost). You'll also see the
    Blockstack icon in your machine's
 
@@ -86,7 +110,7 @@ install:
 
    ![](images/windows-installer.png)
 
-3. Open the Wiindows **Start** menu and click on the recently added **Blockstack Browser**.
+3. Open the Wiindows **Start** menu and click on the recently added **Blockstack Authenticator**.
 
    ![](images/windows-start.png)
 
@@ -96,7 +120,7 @@ install:
 
 4. Choose to **Allow access**.
 
-   The system opens in the Blockstack Browser application.
+   The system opens in the Blockstack Authenticator application.
 
     ![](images/windows-browser.png)
 
@@ -166,7 +190,7 @@ the version of Docker appropriate for your operating system</a>.
     Registering protocol handler
     ```
 
-    The system launches the Blockstack Browser application for you.
+    The system launches the Blockstack Authenticator application for you.
 
 
     ![](images/ubuntu-browser.png)
@@ -178,7 +202,7 @@ Until you stop the Blockstack containers, the application will continue to run o
 $ sudo docker container ls --format '{{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}'
 ```
 
-Use `./Blockstack-for-Linux-vO.30.0.sh stop` to stop the Blockstack browser and its containers.
+Use `./Blockstack-for-Linux-vO.30.0.sh stop` to stop the Blockstack Authenticator and its containers.
 
 
 ## Uninstall the browser
@@ -216,7 +240,7 @@ your operating system.
 
    ![](images/eject-blockstack.png)
 
-4. Locate the **Blockstack Browser** and choose **Uninstall**.
+4. Locate the **Blockstack Authenticator** and choose **Uninstall**.
 
    ![](images/browser-uninstall.png)
 
