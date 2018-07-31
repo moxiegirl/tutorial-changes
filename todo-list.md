@@ -5,11 +5,11 @@ image: /images/article-photos/chalkboard.jpg
 youtube: https://www.youtube.com/embed/oyvg-h0obFw
 ---
 
-What are we learning today?
+In this tutorial you build a single-page application (SPA) with Javascript and
+Blockstack. This applicatin teaches you how to manage authentiation using a
+Blockstack ID and store information associated with that ID using Blockstack
+Storage (Gaia).
 
-- How to build a Single Page Javascript application with Blockstack
-- How to manage authentication using a Blockstack ID
-- How to use Blockstack Storage (Gaia) as an application backend.
 
 #### Requirements
 
