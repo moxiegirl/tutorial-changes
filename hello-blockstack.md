@@ -189,11 +189,11 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
    not. This is done automatically by the Blockstack API, more about this later.
    The next step depends on the users' current state.
 
-   | Only using web app             | Has client edition installed                       |
+   | Using web app    | Has client edition installed      |
    |------------------|-----------------------------------|
    | ![](images/login-choice.png) | ![](images/login.gif) |
 
-   If the user has use the Blockstack authenticator but not reset it, the user can
+   If the user has used the Blockstack authenticator but not reset it, the user can
    simply use the exiting identity.
 
    ![](images/login-no-auth.png)
@@ -225,7 +225,7 @@ document.getElementById('signin-button').addEventListener('click', function() {
 })
 ```
 
-You can find the `redirectUserToSignIn` function is part of the [Blockstack Javascript documentation](https://blockstack.github.io/blockstack.js/). There is also a sign out button handler. This handler deletes the local user data and signs the user out:
+You can find the `redirectUserToSignIn()` function is part of the [Blockstack Javascript documentation](https://blockstack.github.io/blockstack.js/). There is also a sign out button handler. This handler deletes the local user data and signs the user out:
 
 ```js
 document.getElementById('signout-button').addEventListener('click', function() {
@@ -233,7 +233,7 @@ document.getElementById('signout-button').addEventListener('click', function() {
 })
 ```
 
-The handlers are followed by a `showProfile` function for showing the user's profile:
+The handlers are followed by a `showProfile()` function for showing the user's profile:
 
 ```js
 function showProfile(profile) {
@@ -247,7 +247,7 @@ function showProfile(profile) {
 }
 ```
 
-Each `getElementById` function refers to elemments in the `index.html` file.
+Each `getElementById()` function refers to elemments in the `index.html` file.
 
 Once a user is successfully signed in, there is logic for loading the user
 profile and displaying the application. As illustrated earlier, there are
@@ -257,7 +257,7 @@ several states the user can be in:
 - The user has a pending sign in request
 - The user is signed out
 
-These three choices are expressed as followed:
+The application handles these situtations as followed:
 
 ```js
 if (blockstack.isUserSignedIn()) {
@@ -271,15 +271,15 @@ if (blockstack.isUserSignedIn()) {
 ```
 
 When the user is signed in, Blockstack loads the user data from local storage
-and displays the profile with the `showProfile` function. When the user has a
+and displays the profile with the `showProfile()` function. When the user has a
 pending sign in request, the appplication signs the user in and redirects the
 user back to the home page.
 
-### Part 4: App Manifest
+### Application manifest
 
-The app manifest file (`/public/manifest.json`) contains configurations for your app that dictate how it will be displayed in auth views and on user home screens.
-
-The `manifest.json` file should look like this:
+The  application's `/public/manifest.json` file configures your app. The
+configurations dictate how the application is displayed in auth views and on
+user home screens. The contents are very simple:
 
 ```json
 {
@@ -296,38 +296,37 @@ The `manifest.json` file should look like this:
 
 Keep it as is or fill it in with new information that describes your app.
 
-### Part 5: Source Control
+### Save your application code
 
-To complete the tutorial, save your app code by pushing it to GitHub.
+Complete the tutorial by storing your app code on GitHub. Before you begin, make sure you have a GitHub account and have configured your environment to use it.
 
-First, create a simple git repo:
+1. Initialize the application code as a Git repo.
 
-```bash
-git init
-```
+    ```bash
+    git init
+    ```
 
-Next, add and commit all of the files:
+2. Add and commit all of the files:
 
-```bash
-git add . && git commit -m "first commit"
-```
+    ```bash
+    git add . && git commit -m "first commit"
+    ```
 
-Then, create a new repo on GitHub and name it "hello-blockstack":
+3. In GitHub, create a `hello-blockstack` repository.
 
-> https://github.com/new
+4. Back in your termininal window, add a remote for GitHub.
 
-After that, add the remote repo to your local git repo. Make sure to fill in your username:
+    Make sure to fill in your username:
 
-```bash
-git remote add origin git@github.com:YOUR_USERNAME_HERE/hello-blockstack.git
-```
+    ```bash
+    git remote add origin git@github.com:YOUR_USERNAME_HERE/hello-blockstack.git
+    ```
 
-Last, push all of the code to the master branch of the remote repo:
+5. Push your new code to the master branch of the remote repo:
 
-```
-git push origin master
-```
+    ```
+    git push origin master
+    ```
 
 You're done! You just built your first Blockstack app and shipped the code.
-
 You're well on your way to becoming a Blockstack app legend.
