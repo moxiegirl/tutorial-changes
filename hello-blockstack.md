@@ -49,7 +49,7 @@ it](https://www.npmjs.com/get-npm). Finally, if you get stuck at any point
 while working on the tutorial, the completed [source code is available for
 you]() to check your work against.
 
-Finally, make sure you have [created at least one Blockstack ID]().  
+Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md).  
 
 ## Use npm to install Yeoman and the Blockstack App Generator
 
