@@ -183,9 +183,9 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
 4. Choose **Sign In with Blockstack**.
 
-   The application detects whether the user has the client edition installed or
-   not. This is done automatically by the Blockstack API, more about this later.
-   The next step depends on the users' current state.
+   The application detects whether the user has the Blockstack client edition
+   installed or not. This is done automatically by the Blockstack API, more
+   about this later. The next step depends on the users' current state.
 
    | Using web app    | Has client edition installed      |
    |------------------|-----------------------------------|
