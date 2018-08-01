@@ -183,7 +183,7 @@ in and sign out is handled in each of these files:
 | `Landing.vue `  | Generates the `authRequest`.        |
 | `Dashboard.vue` | Handles sign out.           |
 
-The `src/components/Landing.vue` code calls a `redirectToSignIn()` function which generates the `authRequest` and redirects the user to the Blockstack authenticator:
+The `src/components/Landing.vue` code calls a [`redirectToSignIn()`](https://blockstack.github.io/blockstack.js#redirectToSignIn) function which generates the `authRequest` and redirects the user to the Blockstack authenticator:
 
 ```js
 signIn () {
@@ -205,7 +205,7 @@ if (blockstack.isUserSignedIn()) {
 }
 ```
 
-If `blockstack.isUserSignedIn()` is true, the user was previously signed in so Blockstack pulls the data from the browser and uses it in our application. If the check on  `blockstack.isSignInPending()` is true, a previous `authResponse` was sent to the application but hasn't been processed yet. The `handlePendingSignIn()` function processes any pending sign in.
+If [`blockstack.isUserSignedIn()`](https://blockstack.github.io/blockstack.js/#isusersignedin) is true, the user was previously signed in so Blockstack pulls the data from the browser and uses it in our application. If the check on  [`blockstack.isSignInPending()`](https://blockstack.github.io/blockstack.js/#issigninpending) is true, a previous `authResponse` was sent to the application but hasn't been processed yet. The `handlePendingSignIn()` function processes any pending sign in.
 
 Signout is handled in `src/components/Dashboard.vue`.
 ```js
@@ -321,7 +321,7 @@ The `todos` data is retrieved from the promise.
 
 ## Summary
 
-You now have everything you need to construct complex applications complete with authentication and storage on the Decentralized Internet. Why not try coding [a sample application that accesses multiple profiles](multi-player-storage.md). 
+You now have everything you need to construct complex applications complete with authentication and storage on the Decentralized Internet. Why not try coding [a sample application that accesses multiple profiles](multi-player-storage.md).
 
 If you would like to explore the Blockstack APIs, you can visit the [Blockstack Core API](https://core.blockstack.org/) documentation or the [Blockstack JS API](https://blockstack.github.io/blockstack.js).
 
