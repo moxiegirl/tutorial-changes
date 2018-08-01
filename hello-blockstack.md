@@ -136,22 +136,22 @@ structure of this generic application structure:
 |------------------|-----------------------------------|
 | .editorconfig    | Sets universal values for editor. |
 | .gitignore       | Git configuration file.           |
-| firebase.json    | Configuragion for mobile application. |                         |
-| package.json     | Specifies required packages.                          |
-| requires.js      | A Javascript module loader.                          |
-| server.js        | Simple static server configuration.                          |
+| firebase.json    | Configuragion for mobile application.|
+| package.json     | Specifies required packages.       |
+| requires.js      | A Javascript module loader.        |
+| server.js        | Simple static server configuration.|
 
 In the `public` folder you find these files:
 
 | File             | Description                       |
 |------------------|-----------------------------------|
-| app.css   | Contains application styles.                         |
-| app.js    | Main application file.                          |
-| boostrap.min.css | Minifield css for production.                          |
-| icon-192x192.png | Application icon                          |
-| index.html       | Single page.                          |
-| manifest.json    | Tells the browser about the application and how it should behave.                          |
-| robots.txt       | Configures crawling and indexing.                          |
+| app.css   | Contains application styles.             |
+| app.js    | Main application file.                   |
+| boostrap.min.css | Minifield css for production.     |
+| icon-192x192.png | Application icon                  |
+| index.html       | Single page.                      |
+| manifest.json    | Tells the browser about the application and how it should behave.|
+| robots.txt       | Configures crawling and indexing. |
 
 The simple static file server in the `server.js`file serves all of the files in
 the `/public` directory, including `index.html`, `app.js`, `bootstrap.min.css`
