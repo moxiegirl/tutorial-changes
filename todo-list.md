@@ -116,7 +116,7 @@ is not logged into the sample application.
 
 If the login to the application is successful, the user is presented with the application:
 
-  ![](images/todo-app.png)
+![](images/todo-app.png)
 
 Clicking the **Sign In With Blockstack** button brings up a modal that prompts
 you to use an existing ID's session, create a new ID, or reset the browser with
@@ -174,7 +174,8 @@ You are now logged into the Todo application!
 
 ## Undder the covers in the sign in code
 
-Sign in and sign out is handled in each of these files:
+Now, go to the underlying `blockstack-todo` code you cloned or downloaded. Sign
+in and sign out is handled in each of these files:
 
 | File            | Description |
 |-----------------|-------------|
@@ -218,21 +219,21 @@ The method allows the application creator to decide where to redirect the user u
 
 ## Working with the application
 
-To see the Gaia Storage in action add a couple of todos. Maybe a list of applications you want to see built on top of Blockstack. I added the following:
+Now trying adding a few todos using the application. For example, try making a list of applications you want to see built on top of Blockstack:
 
-- [ ] Software package manager secured by the blockchain
-- [ ] Mutable torrents with human readable names
-- [ ] Decentralized twitter
+![](images/make-a-list.png)
 
-These Todos have now been stored in the Gaia Hub linked to your Blockstack ID. For more information about the Gaia hub, see the [hub repository](https://github.com/blockstack/gaia).
-
-You can fetch the `todos.json` file you just added by opening the Javascript console and running the following command:
+Each list is immediately stored in the Gaia Hub linked to your Blockstack ID.
+For more information about the Gaia hub, see the [hub
+repository](https://github.com/blockstack/gaia). You can fetch the `todos.json`
+file you just added by opening the Javascript console and running the following
+command:
 
 ```Javascript
 blockstack.getFile("todos.json", { decrypt: true }).then((file) => {console.log(file)})
 ```
 
-You should see the todos that were recently added. The todos created above generate the following JSON:
+You should see a JSON with the todos you just added:
 
 ```json
 [
@@ -253,14 +254,10 @@ You should see the todos that were recently added. The todos created above gener
   }
 ]
 ```
-Now add another todo and mark it completed:
 
-- [x] Blockstack Todo
-- [ ] Software package manager secured by the blockchain
-- [ ] Mutable torrents with human readable names
-- [ ] Decentralized twitter
 
-When you fetch the newly generated file using the Javascript console it will reflect the change:
+Now, add another todo and check it off. When you fetch the newly generated file
+using the Javascript console it will reflect the change look for `"completed":true`:
 
 ```json
 [
@@ -274,45 +271,40 @@ When you fetch the newly generated file using the Javascript console it will ref
     "text":"Software package manager secured by the blockchain",
     "completed":false
   },
-  {
-    "id":1,
-    "text":"Mutable torrents with human readable names",
-    "completed":false
-  },
-  {
-    "id":0,
-    "text":"Decentralized twitter",
-    "completed":false
-  }
+ ...
 ]
 ```
 
-Now that you have seen the application in action, lets dig into how it works. Open the `blockstack-todos` repository in a text editor.
-
+Now that you have seen the application in action, dig into how it works.
 
 
 ## Implementing storage
 
-Next we are going to see how the application interacts with your Gaia Hub. This code lives in the `src/components/Dashboard.vue` file. First lets see where the changes to the Todos are processed:
+Now, go to the underlying `blockstack-todo` code you cloned or downloaded. The
+application interactions with your Gaia Hub originate in the
+`src/components/Dashboard.vue` file. First lets see where the changes to the
+Todos are processed:
 
 ```js
 todos: {
   handler: function (todos) {
     const blockstack = this.blockstack
-    return blockstack.putFile(STORAGE_FILE, JSON.stringify(todos), { encrypt: true })
+
+    // encryption is now enabled by default
+    return blockstack.putFile(STORAGE_FILE, JSON.stringify(todos))
   },
   deep: true
 }
 ```
 
-You can see that the `todos` JSON object is passed in. Then we use the `blockstack.putFile()` method to store it in our Gaia Hub. Quick and easy!
+Tje `todos` JSON object is passed in and the  [`blockstack.putFile()`](https://blockstack.github.io/blockstack.js/#putfile) method to store it in our Gaia Hub.
 
-The other operation we need to perform is to read the Todos from the storage. This is accomplished with the `blockstack.getFile()` method which returns a promise:
+The code needs to read the Todo items from the storage with the [`blockstack.getFile()`](https://blockstack.github.io/blockstack.js/#getfile) method which returns a promise:
 
 ```js
 fetchData () {
   const blockstack = this.blockstack
-  blockstack.getFile(STORAGE_FILE, { decrypt: true })
+  blockstack.getFile(STORAGE_FILE) // decryption is enabled by default
   .then((todosText) => {
     var todos = JSON.parse(todosText || '[]')
     todos.forEach(function (todo, index) {
@@ -326,4 +318,11 @@ fetchData () {
 
 The `todos` data is retrieved from the promise.
 
-You now have everything you need to construct complex applications complete with Authentication and Storage on the Decentralized Internet. Go forth and build!
+
+## Summary
+
+You now have everything you need to construct complex applications complete with authentication and storage on the Decentralized Internet. Why not try coding [a sample application that accesses multiple profiles](multi-player-storage.md). 
+
+If you would like to explore the Blockstack APIs, you can visit the [Blockstack Core API](https://core.blockstack.org/) documentation or the [Blockstack JS API](https://blockstack.github.io/blockstack.js).
+
+ Go forth and build!
