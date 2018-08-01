@@ -183,21 +183,21 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
 4. Choose **Sign In with Blockstack**.
 
-   The application detects whether the user has the Blockstack client edition
-   installed or not. This is done automatically by the Blockstack API, more
-   about this later. The next step depends on the users' current state.
+    The application detects whether the user has the Blockstack client edition installed or
+    not. This is done automatically by the Blockstack API, more about this later.
+    What the authenticator displays depends on the users' current state.
 
-   | Using web app    | Has client edition installed      |
-   |------------------|-----------------------------------|
-   | ![](images/login-choice.png) | ![](images/login.gif) |
+    | Using web app    | Has client edition installed      |
+    |------------------|-----------------------------------|
+    | ![](images/login-choice.png) | ![](images/login.gif) |
 
-   If the user has used the Blockstack authenticator but not reset it, the user can
-   simply use the exiting identity.
+    If the user logged into the Blockstack authenticator but not reset it, the user can
+    simply use the exiting identity.
 
    ![](images/login-no-auth.png)
 
-   If the user chooses **Deny**, the Blockstack authenticator opens but the user
-   is not logged into the sample application.
+   If the user chooses **Deny**, the Blockstack authenticator displays its
+   **Home** page but the user is not logged into the sample application.
 
 5. Leave your new application running and move onto the next section.
 

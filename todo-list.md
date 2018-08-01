@@ -5,13 +5,19 @@ image: /images/article-photos/chalkboard.jpg
 youtube: https://www.youtube.com/embed/oyvg-h0obFw
 ---
 
-In this tutorial, you build and a single-page application (SPA) with Blockstack
-and Vue.js. You take a tour through the applications' Blockstack functionality.
-You'll learn how it manages authentiation using a Blockstack ID and how it
-stores information associated with that ID using Blockstack Storage (Gaia).
+In this tutorial, you build the code for and run a single-page application (SPA)
+with Blockstack and Vue.js. Once the application is running, you take a tour
+through the applications' Blockstack functionality. You'll learn how it manages
+authentiation using a Blockstack ID and how it stores information associated
+with that ID using Blockstack Storage (Gaia).
 
-The tutorial relies on both the `npm` and  the `yarn` package managers. Before you begin, verify
-you have these tools `npm` using the `which` command to verify.
+## Prerequisites
+
+Make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id). You'll use this ID to Finteract with the Todo application.
+
+The applicaton code relies on both the `npm` and  the `yarn` package managers.
+Before you begin, verify you have these tools `npm` using the `which` command to
+verify.
 
 ```bash
 $ which npm
@@ -23,10 +29,12 @@ $ which yarn
 [Install npm](https://www.npmjs.com/get-npm), [install
 yarn](https://yarnpkg.com/lang/en/docs/install/#mac-stable), or both as needed. You
 
-Finally, make sure you have [created at least one Blockstack ID](ids-introduction.md#create-an-initial-blockstack-id). You'll use this ID to interact with the application.
+While it stands alone, this tour does on the information from the [Hello
+Blockstack tutorial](hello-blockstack.md). If you haven't worked through that
+tutorial, you may want to do that before continuing.
 
 
-## Install, build, and run the code
+## Install the applicaton code and retrieve the dependencies
 
 You can clone the source code with  `git` or [download and unzip the code from
 the
@@ -59,7 +67,21 @@ These instructions assume you are cloning.
     success Saved lockfile.
     ✨  Done in 19.90s.
     ```
-3. Start the application.
+
+## Understand the important application files
+
+The Todo application has a basic Vue.js structure. There are several configuration files but the central programming files are in the `src` directory:
+
+| File            | Description |
+|-----------------|-------------|
+| `main.js`       | Application initialization.            |
+| `App.vue `      | Code for handling the `authResponse`.        |
+| `Landing.vue `  | Code for the initial sign on page.            |
+| `Dashboard.vue` | Application data storage and user sign out.           |
+
+The example application runs in a node server on your local host. In the next section, you start the application and interact with it.
+
+1. Start the application.
 
     ```
     $ npm run start
@@ -69,68 +91,132 @@ These instructions assume you are cloning.
 
     ![](images/todo-sign-in.png)
 
- 4. Choose **Sign In with Blockstack**.
+ 2. Choose **Sign In with Blockstack**.
 
-    The application detects whether the user has the Blockstack client edition installed or
-    not. This is done automatically by the Blockstack API, more about this later.
-    The next step depends on the users' current state.
 
-    | Using web app    | Has client edition installed      |
-    |------------------|-----------------------------------|
-    | ![](images/login-choice.png) | ![](images/login.gif) |
+## Understand the sign in process
 
-    If the user has used the Blockstack authenticator but not reset it, the user can
-    simply use the exiting identity.
+At startup, the Todo application detects whether the user has the Blockstack client edition
+installed or not. This is done automatically by the Blockstack API, more
+about this later. What the authenticator displays depends on which whether the user has installed the Blockstack Authenticator client edition or not.
 
-    ![](images/login-no-auth.png)
+| Client edition installed | Not installed |
+|------------------|-----------------------------------|
+| ![](images/login.gif)  | ![](images/login-choice.png)|
 
-    If the user chooses **Deny**, the Blockstack authenticator opens but the user
-    is not logged into the sample application.
+If the user was logged into the Blockstack authenticator (web or client) but
+did not reset it, the web application to use the current identity:
 
-#### How Sign In works
+![](images/login-no-auth.png)
 
-As you click the `Sign In With Blockstack` button an _ephemeral key_ is generated within the application. A cryptographic key is called ephemeral if it is generated for each execution of a key establishment process. This key, which is just used for the particular instance of the application, is just used to sign a **Sign In** request. It also generates a public key which is sent to the browser and used to encrypt data coming back to your Blockstack node. This allows the application to store data in your Blockstack storage. The signed authentication request is sent to Blockstack through a JSON Web Token. The JWT is passed in via a query string in the parameter: `https://browser.blockstack.org/auth?authRequest=j902120cn829n1jnvoa...`.
+If the user chooses **Deny**, the Blockstack authenticator opens but the user
+is not logged into the sample application.
 
-To decode the token and see what information it holds you can navigate to [jwt.io](http://jwt.io/) and paste the full token there. The output should look similar to below:
+![](images/windows-browser.png)
 
-```json
-{
-  "jti": "3i96e3ad-0626-4e32-a316-b243154212e2",
-  "iat": 1533136622,
-  "exp": 1533140228,
-  "iss": "did:btc-addr:1Nh8oQTunbEQWjrL666HBx2qMc81puLmMt",
-  "public_keys": [
-    "0362173da080c6e1dec0653fa9a3eff5f5660546e387ce6c24u04a90c2fe1fdu73"
-  ],
-  "domain_name": "http://localhost:8080",
-  "manifest_uri": "http://localhost:8080/manifest.json",
-  "redirect_uri": "http://localhost:8080/",
-  "version": "1.2.0",
-  "do_not_include_profile": true,
-  "supports_hub_url": true,
-  "scopes": [
-    "store_write"
-  ]
+If the login to the application is successful, the user is presented with the application:
+
+  ![](images/todo-app.png)
+
+Clicking the **Sign In With Blockstack** button brings up a modal that prompts
+you to use an existing ID's session, create a new ID, or reset the browser with
+another ID.  When Blockstack is provided an ID, it  generates an _ephemeral key_
+within the application. An ephemeral key is generated for each execution of a
+key establishment process. This key is just used for the particular instance of
+the application, in this case to sign a **Sign In** request.
+
+Blockstack also generates a public key token which is sent to the authenticator
+as an `authRequest` from the authenticator to your local blockstack-core node.
+The signed authentication request is sent to Blockstack through a JSON Web
+Token. The JWT is passed in via a URL query string in the `authRequest`
+parameter:
+`https://browser.blockstack.org/auth?authRequest=j902120cn829n1jnvoa...`. To
+decode the token and see what information it holds:
+
+1. Copy the `authRequest` string from the URL.
+2. Navigate to [jwt.io](http://jwt.io/).
+3. Paste the full token there.
+
+   The output should look similar to below:
+
+    ```json
+    {
+      "jti": "3i96e3ad-0626-4e32-a316-b243154212e2",
+      "iat": 1533136622,
+      "exp": 1533140228,
+      "iss": "did:btc-addr:1Nh8oQTunbEQWjrL666HBx2qMc81puLmMt",
+      "public_keys": [
+        "0362173da080c6e1dec0653fa9a3eff5f5660546e387ce6c24u04a90c2fe1fdu73"
+      ],
+      "domain_name": "http://localhost:8080",
+      "manifest_uri": "http://localhost:8080/manifest.json",
+      "redirect_uri": "http://localhost:8080/",
+      "version": "1.2.0",
+      "do_not_include_profile": true,
+      "supports_hub_url": true,
+      "scopes": [
+        "store_write"
+      ]
+    }
+    ```
+
+>**Note**:
+> 1. The `iss` property is a decentralized identifier or `did`. This identifies you and your name to the application. The specific `did` is a `btc-addr`.
+> 2. The Blockstack JWT implementation is different from other implementations because of the underlying cryptography we employ. There are libraries in [Javascript](https://github.com/blockstack/jsontokens-js) and [Ruby](https://github.com/blockstack/ruby-jwt-blockstack) available on the Blockstack Github to allow you to work with these tokens.
+
+When the blockstack-core receives the `authRequest`, it generates a session token and
+returns an authentication response to the application. This response is similar
+to the `authRequest` above in that the `authResponse`  includes a private key
+intended only for the application. This allows the application to encrypt data
+on your personal Blockstack storage.
+
+You are now logged into the Todo application!
+
+## Undder the covers in the sign in code
+
+Sign in and sign out is handled in each of these files:
+
+| File            | Description |
+|-----------------|-------------|
+| `App.vue `      | Handles the `authResponse`.        |
+| `Landing.vue `  | Generates the `authRequest`.        |
+| `Dashboard.vue` | Handles sign out.           |
+
+The `src/components/Landing.vue` code calls a `redirectToSignIn()` function which generates the `authRequest` and redirects the user to the Blockstack authenticator:
+
+```js
+signIn () {
+  const blockstack = this.blockstack
+  blockstack.redirectToSignIn()
 }
 ```
 
+Once the user authenticates, the application handles the `authResponse` in the `src/App.vue` file. :
+
+```js
+if (blockstack.isUserSignedIn()) {
+  this.user = blockstack.loadUserData().profile
+} else if (blockstack.isSignInPending()) {
+  blockstack.handlePendingSignIn()
+  .then((userData) => {
+    window.location = window.location.origin
+  })
+}
+```
+
+If `blockstack.isUserSignedIn()` is true, the user was previously signed in so Blockstack pulls the data from the browser and uses it in our application. If the check on  `blockstack.isSignInPending()` is true, a previous `authResponse` was sent to the application but hasn't been processed yet. The `handlePendingSignIn()` function processes any pending sign in.
+
+Signout is handled in `src/components/Dashboard.vue`.
+```js
+signOut () {
+  this.blockstack.signUserOut(window.location.href)
+}
+```
+
+The method allows the application creator to decide where to redirect the user upon Sign Out:
 
 
-Clicking the **Sign In** button brings up a modal. When you click `Approve` the following actions are taken:
-
-- A request is sent from the browser to your local blockstack-core node.
-- The blockstack-core node generates a session token which is returned to the application.
-- This session token allows the application to read and write files to your personal Blockstack storage.
-- An authentication response is then generated which is similar to the `authRequest` above.
-- The `authResponse` also includes a private key intended only for the application. This allows the application to encrypt data on your storage.
-- You are now logged into the Todo application!
-
-##### Notes
-
-- `iss` is a decentralized identifier or `did`. This is used to identify you, along with your name to the application. As you see here the particular `did` we are using is a `btc-addr`.
-- The JWT implementation we use is different from other implementations because of the underlying cryptography we employ. There are libraries in [Javascript](https://github.com/blockstack/jsontokens-js) and [Ruby](https://github.com/blockstack/ruby-jwt-blockstack) available on the Blockstack Github to allow you to work with these tokens.
-
-#### Storage - How it works
+## Working with the application
 
 To see the Gaia Storage in action add a couple of todos. Maybe a list of applications you want to see built on top of Blockstack. I added the following:
 
@@ -203,40 +289,7 @@ When you fetch the newly generated file using the Javascript console it will ref
 
 Now that you have seen the application in action, lets dig into how it works. Open the `blockstack-todos` repository in a text editor.
 
-#### Sign In - Implementation
 
-Because this is a [Vue.js](https://vuejs.org/) application the **Sign In** code is in two locations. The first is a call in `src/components/Landing.vue`:
-
-```js
-signIn () {
-  const blockstack = this.blockstack
-  blockstack.redirectToSignIn()
-}
-```
-When this button is clicked the authentication request described above is generated and the user is redirected to their `blockstack-browser` to approve the login. Once the user approves the login the application must handle the `authResponse`. This happens in `src/App.vue` which is the page at the application root, `/`:
-
-```js
-if (blockstack.isUserSignedIn()) {
-  this.user = blockstack.loadUserData().profile
-} else if (blockstack.isSignInPending()) {
-  blockstack.handlePendingSignIn()
-  .then((userData) => {
-    window.location = window.location.origin
-  })
-}
-```
-
-First we check if the user is signed in with `blockstack.isUserSignedIn()`. If this is true then we can pull that data from the browser and use it in our application.
-
-If we aren't signed in we then need to check `blockstack.isSignInPending()`. This means that an `authResponse` has been sent back to the application but hasn't been processed yet. the `handlePendingSignIn()` function takes care of processing that pending Sign In.
-
-Signout is handled in `src/components/Dashboard.vue`. The method allows the application creator to decide where to redirect the user upon Sign Out:
-
-```js
-signOut () {
-  this.blockstack.signUserOut(window.location.href)
-}
-```
 
 ## Implementing storage
 
