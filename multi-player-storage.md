@@ -155,7 +155,7 @@ In this section, you build an initial React.js application called Publik.
 
     The application tells you it will **Read your basic info**.
 
-       ![](images/login.png)
+    ![](images/login.png)
 
 Leave your new application running and move onto the next section.
 
