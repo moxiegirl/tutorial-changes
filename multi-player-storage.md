@@ -199,7 +199,7 @@ Modify your authentication request to include the `publish_data` scope.
     The authentication request now prompts the user for permission to **Publish
     data stored for the app**.
 
-     ![](images/new-prompt.gif)
+     ![](images/publish-data-perm.png)
 
 ## Add support for user status submission and lookup
 
