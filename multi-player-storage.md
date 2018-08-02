@@ -21,7 +21,7 @@ topics:
 	- [Put it all together](#put-it-all-together)
 - [Wrapping up](#wrapping-up)
 
-This tutorial does not teach you about authentication. That is covered in depth [in another tutorial](#).
+This tutorial does not teach you about authentication. That is covered in depth [in the hello-blockstack tutorial](hello-blockstack.md).
 
 <!--TODO: authentication tutorial-->
 <!--Strictly speaking not sure it is necessary here to send them out-->
@@ -42,10 +42,10 @@ When complete, the app is capable of the following:
 - looking up the profiles and statuses of other users
 
 The basic identity and storage services are provided by `blockstack.js`. To test
-the application, you need to have already registered a Blockstack ID.
+the application, you need to have already [registered a Blockstack ID](ids-introduction.md).
 
 The tutorial relies on the `npm` dependency manager. Before you begin, verify
-you have installed `npm` using the `which` command to verify.
+you have installed `npm` using the `which` command.
 
 ```bash
 $ which npm
@@ -115,8 +115,8 @@ In this section, you build an initial React.js application called Publik.
        `---------´   │        generator!        │
         ( _´U`_ )    ╰──────────────────────────╯
         /___A___\   /
-         |  ~  |     
-       __'.___.'__   
+         |  ~  |
+       __'.___.'__
      ´   `  |° ´ Y `
 
     ? Are you ready to build a Blockstack app in React? (Y/n)
@@ -149,13 +149,13 @@ In this section, you build an initial React.js application called Publik.
 
    You should see a simple React app.
 
-   ![](images/initial-app.gif)
+	 ![](images/initial-app.gif)
 
 8. Choose **Sign In with Blockstack**.
 
-    The application tells the user it will **Read your basic info**.
+    The application tells you it will **Read your basic info**.
 
-    ![](images/login.gif)
+       ![](images/login.png)
 
 Leave your new application running and move onto the next section.
 
@@ -165,7 +165,7 @@ Every app that uses Gaia storage must add itself to the user's `profile.json`
 file. The Blockstack browser does this automatically when the `publish_data`
 scope is requested during authentication. For this application, the user files
 stored on Gaia are made visible to others via the `apps` property in the user's
-`profile.json` file.  
+`profile.json` file.
 
 Modify your authentication request to include the `publish_data` scope.
 
@@ -244,7 +244,7 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
         newStatus: "",
         statuses: [],
         statusIndex: 0,
-        isLoading: false    
+        isLoading: false
       };
     }
     ```
