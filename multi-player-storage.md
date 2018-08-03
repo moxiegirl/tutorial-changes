@@ -403,7 +403,7 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
     }
     ```
 
-8. Add a `saveNewStatus` method to save the new statuses.
+8. Add a `saveNewStatus()` method to save the new statuses.
 
     ```javascript
     saveNewStatus(statusText) {
@@ -544,7 +544,7 @@ Update `Profile.jsx` again.
 
     After the application compiles, you should see the following:
 
-    ![Multi-reader storage authentication](/images/tutorials/multi-player-storage-status.png)
+    ![Multi-reader storage authentication](/images/multi-player-storage-status.png)
 
 
 At this point, you have a basic micro-blogging app that users can use to post and
