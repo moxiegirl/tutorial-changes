@@ -201,16 +201,72 @@ Modify your authentication request to include the `publish_data` scope.
 
      ![](images/publish-data-perm.png)
 
+## Understand Gaia storage methods
+
+Once you authenticate a user with `store_write` and `publish_data`, you can
+begin to manage data for your users. BlockStack JS provides two methods
+`getFile()` and `putFile()` for interacting with Gaia storage. The storage
+methods support all file types. This means you can store SQL, Markdown, JSON, or
+even a custom format.
+
+You can create a meaningful and complex data layer using these two methods.
+Before creating an application, consider fundamental data architecture and make
+some decisions about how you’re modeling data. For example, consider building a
+simple grocery list app. A user should be able to create, read, update, and
+delete grocery lists.
+
+A single file collection stores items as an array nested inside each grocery
+list:
+
+```js
+// grocerylists.json
+{
+  "3255": {
+    "items": [
+      "1 Head of Lettuce",
+      "Haralson apples"
+    ]
+  },
+  // ...more lists with items
+}
+```
+
+This is conceptually the simplest way to manage grocery lists. When you read a
+`/grocerylists.json` file with `getFile()`, you get back one or more grocery
+lists and their items. When you write a single list, the `putFile()` method
+overwrites the entire list. So, a write operation for a new or updated grocery
+list must submit all existings lists as well.
+
+Further, because this runs on the client where anything can go wrong. If the
+client-side code encounters a parsing error with a user-input value and you
+could overwrite the entire file with:
+
+`line 6: Parsing Error: Unexpected token.`
+
+Further, a single file makes pagination impossible and if your app stores a
+single file for all list you have less control over file permissions. To avoid
+these issues, you can create an index file that stores an array of IDs. These
+IDs point to a name of another file in a `grocerylists` folder.
+
+![](images/multiple-lists.png)
+
+This design allows you to get only the files you need and avoid accidentally
+overwriting all lists. Further, you’re only updating the index file when you add
+or remove a grocery list; updating a list has no impact.
+
+
 ## Add support for user status submission and lookup
 
 In this step, you add three `blockstack.js` methods that support posting of "statuses". These are the `putFile()`, `getFile()`, and `lookupProfile()` methods.
 
 1. Open the `src/components/Profile.jsx` file.
 
-2. Expand the `import` statement with`blockstack.js` methods.
+2. Expand the `import from blockstack` statement with data methods.
 
-    Add `putFile`, `getFile`, and `lookupProfile` after `Person`. When you are
-    done, the import statement should look like the following:
+    The `Person` object holds a Blockstack profile. Add `putFile`, `getFile`,
+    and `lookupProfile` after `Person`.
+
+		When you are done, the import statement should look like the following:
 
     ```javascript
     import {
@@ -225,7 +281,7 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
 
 3. Replace the `constructor()` initial state so that it holds the key properties required by the app.
 
-    Your constructor should look like this:
+    This code constructs a BlockStack `Person` object to hold the profile. Your constructor should look like this:
 
     ```javascript
     constructor(props) {
@@ -253,7 +309,8 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
 4. Locate the `render()` method.
 5. Modify the `render()` method to add a text input and submit button to the application.
 
-    The following code adds these:
+    The following code echos the `person.name` and `person.avatarURL`
+    properties from the profile on the display:
 
     ```javascript
     render() {
@@ -317,7 +374,9 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
    user profile data.
 
 6. Locate the `componentWillMount()` method.
-7. Add the `username` property below the `person` property:
+7. Add the `username` property below the `person` property.
+
+	 You'll use the Blockstack `loadUserData()` method to access the `username`.
 
 
     ```javascript
@@ -369,7 +428,7 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
 
 9. Save the `Profile.jsk` file.
 
-   After the application compiles successfully, your Publik application should appears as follows:
+   After the application compiles successfully, your application should appears as follows:
 
    ![](images/on-your-mind.gif)
 
