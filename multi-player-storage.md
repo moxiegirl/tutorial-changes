@@ -588,7 +588,6 @@ other users' profiles by visiting `http://localhost:8080/other_user.id`
         <App />
       </BrowserRouter>
     ), document.getElementById('root'));
-
     ```
 6. Save and close the `src/index.js` file.
 7. Edit the  `src/components/App.jsx` file.
