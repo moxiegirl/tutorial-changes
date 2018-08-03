@@ -190,7 +190,8 @@ Modify your authentication request to include the `publish_data` scope.
     }
     ```
 
-    **NOTE**: By default, authentication requests include the `store_write` scope which enables storage.
+    By default, authentication requests include the `store_write` scope which
+    enables storage. This is what allows you to store information to Gaia.
 
 3. Save your changes.
 4. Go back to your app at `http://localhost:8080/`.
@@ -430,7 +431,7 @@ In this step, you add three `blockstack.js` methods that support posting of "sta
 
    After the application compiles successfully, your application should appears as follows:
 
-   ![](images/on-your-mind.gif)
+   ![](images/display-complete.png)
 
 10. Enter your status in the text box and press the **Submit** button.
 
@@ -458,7 +459,7 @@ Update `Profile.jsx` again.
     ```
    This loads existing state. Your code needs to fetch statuses on page load.
 
-4. Add a new method called `fetchData()`.
+4. Add a new method called `fetchData()` after the `statuses.unshift(status)` section.
 
     ```javascript
 
@@ -495,11 +496,12 @@ Update `Profile.jsx` again.
     After the application compiles successfully, users are able to **Submit**
     multiple statuses and review them in the app.
 
-    ![](images/status-in.gif)
+    ![](images/saving-status.png)
 
+## Change the style
 
-7. Edit the `src/styles/style.css` file.
-8. Replace the content with the following:
+1. Edit the `src/styles/style.css` file.
+2. Replace the content with the following:
 
 
     ```css
@@ -540,7 +542,7 @@ Update `Profile.jsx` again.
     .status{margin:15px 0px;padding:20px;background-color:#2e2e2e;border-radius:6px}
     ```
 
-9. Save and close the `src/styles/style.css` file.
+3. Save and close the `src/styles/style.css` file.
 
     After the application compiles, you should see the following:
 
