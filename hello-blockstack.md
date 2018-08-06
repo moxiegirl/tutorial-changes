@@ -171,7 +171,7 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
     The first time you run it, your system prompts you to accept incoming connections.
 
-    ![Network Connection](./images/network-connections.gif)
+    ![Network Connection](/images/network-connections.gif)
 
 2. Choose **Allow**.
 
@@ -179,7 +179,7 @@ and open your browser 'http://localhost:5000'.  From the root of your new applic
 
    You should see a simple application:
 
-   ![](images/initial-app.gif)
+   ![](/images/initial-app.gif)
 
 4. Choose **Sign In with Blockstack**.
 

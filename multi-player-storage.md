@@ -798,7 +798,7 @@ process URL paths that contain the `.` (dot) character for example,
     }
     ```
 
-    This checks to ensure that users are viewing your own profile, by wrapping the **Logout** button and inputs with the `{isLocal() && ...}` condition.
+    ### This checks to ensure that users are viewing their own profile, by wrapping the **Logout** button and inputs with the `{isLocal() && ...}` condition.
 
 ### Put it all together
 
@@ -811,7 +811,6 @@ process URL paths that contain the `.` (dot) character for example,
 
 3. Point your browser to `http://localhost:8080/your_blockstack.id` to see the final application.
 
-<!-- TODO: Need another user ID to test with -->
 
 
 ## Wrapping up
